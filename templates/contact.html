@@ -1,74 +1,142 @@
 {% extends "layout.html" %}
 
 {% block content %}
-
-
-<div class="page-header"
-    style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('{{ url_for('static', filename='images/header_contact.png') }}') no-repeat center center/cover;">
-    <div>
-        <h1>Contact Us</h1>
+<div class="page-header creative-header"
+    style="background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('{{ url_for('static', filename='images/header_contact.png') }}') no-repeat center center/cover;">
+    <div class="header-content-animate">
+        <h1>Get in Touch</h1>
+        <p class="header-subtitle">We'd love to hear from you. Let's plan your next adventure.</p>
         <div class="breadcrumb">
             <a href="{{ url_for('home') }}">Home</a> <span>/</span> Contact
         </div>
     </div>
 </div>
 
-<section class="contact-section">
-    <div class="contact-container">
-        <!-- Contact Info Side -->
-        <div class="contact-info-card">
-            <h3 style="margin-bottom: 2rem; color: var(--primary);">Get in Touch</h3>
-            <p style="margin-bottom: 2rem;">Have questions about our tour packages? Feel free to contact us or visit our
-                office.</p>
-
-            <div class="contact-item">
-                <div class="contact-icon">
-                    <i class="fas fa-map-marker-alt"></i>
-                </div>
-                <div class="contact-details">
-                    <strong>Our Office</strong>
-                    <p>Velusamy Complex, 10.C, Opp. to Kongunadu College,<br>Pallakattu Thottam, Gounder
-                        Mills,<br>Coimbatore, Tamil Nadu 641029</p>
-                </div>
+<section class="creative-contact-wrapper">
+    <!-- Floating Info Cards -->
+    <div class="contact-cards-container">
+        <!-- Address Card -->
+        <div class="contact-card-3d delay-1">
+            <div class="card-icon-float">
+                <i class="fas fa-map-marker-alt"></i>
             </div>
-
-            <div class="contact-item">
-                <div class="contact-icon">
-                    <i class="fas fa-phone-alt"></i>
-                </div>
-                <div class="contact-details">
-                    <strong>Phone Number</strong>
-                    <p>+91 78679 83892<br>+91 96292 26612</p>
-                </div>
-            </div>
-
-            <div class="contact-item">
-                <div class="contact-icon">
-                    <i class="fas fa-envelope"></i>
-                </div>
-                <div class="contact-details">
-                    <strong>Email Address</strong>
-                    <p>info@luckytours.com<br>support@luckytours.com</p>
-                </div>
-            </div>
-
-            <div style="margin-top: 2rem;">
-                <h4 style="margin-bottom: 1rem;">Follow Us</h4>
-                <div class="social-links" style="margin: 0;">
-                    <a href="#" style="background: var(--primary); color: white;"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#" style="background: var(--primary); color: white;"><i class="fab fa-instagram"></i></a>
-                    <a href="#" style="background: var(--primary); color: white;"><i class="fab fa-twitter"></i></a>
-                </div>
-            </div>
+            <h3>Visit Our Office</h3>
+            <p>Velusamy Complex, 10.C<br>Opp. to Kongunadu College<br>Coimbatore, Tamil Nadu</p>
+            <div class="card-shine"></div>
         </div>
 
-        <!-- Map Side -->
-        <div class="map-container" style="height: 100%; min-height: 500px;">
-            <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3916.086369287663!2d76.9409163!3d11.0368165!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba858882ca1cb19%3A0xc4f5a34ec0128373!2sGounder%20Mills%2C%20Coimbatore%2C%20Tamil%20Nadu!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"
-                width="100%" height="100%" style="border:0; border-radius: var(--radius-md);" allowfullscreen=""
-                loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        <!-- Phone Card -->
+        <div class="contact-card-3d delay-2">
+            <div class="card-icon-float">
+                <i class="fas fa-phone-volume"></i>
+            </div>
+            <h3>Let's Talk</h3>
+            <p class="highlight-contact">+91 78679 83892</p>
+            <p>+91 96292 26612</p>
+            <p class="sub-text">Mon - Sat: 9am - 7pm</p>
+            <div class="card-shine"></div>
+        </div>
+
+        <!-- Email Card -->
+        <div class="contact-card-3d delay-3">
+            <div class="card-icon-float">
+                <i class="fas fa-paper-plane"></i>
+            </div>
+            <h3>Email Us</h3>
+            <p class="highlight-contact">info@luckytours.com</p>
+            <p>support@luckytours.com</p>
+            <div class="social-row">
+                <a href="#"><i class="fab fa-whatsapp"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+            </div>
+            <div class="card-shine"></div>
+        </div>
+    </div>
+
+    <!-- Immersive Map Section -->
+    <div class="creative-map-section">
+        <div class="map-overlay-glass">
+            <h2>Find Us Here</h2>
+            <p>Easy to reach, ready to welcome you.</p>
+            <a href="https://maps.google.com" target="_blank" class="btn-map-direction">
+                <i class="fas fa-location-arrow"></i> Get Directions
+            </a>
+        </div>
+        <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3916.086369287663!2d76.9409163!3d11.0368165!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba858882ca1cb19%3A0xc4f5a34ec0128373!2sGounder%20Mills%2C%20Coimbatore%2C%20Tamil%20Nadu!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"
+            width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+
+    <!-- FAQ Section (F/A Column) -->
+    <div class="faq-container" style="margin-top: 5rem;">
+        <h2 class="section-title">Frequently Asked Questions</h2>
+        <div class="faq-grid">
+            <div class="faq-item">
+                <button class="faq-question">
+                    <span>How do I book a tour?</span>
+                    <i class="fas fa-plus"></i>
+                </button>
+                <div class="faq-answer">
+                    <p>You can book a tour by browsing our categories, selecting a package, and filling out the enquiry
+                        form. Alternatively, you can call us directly.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question">
+                    <span>Do you offer customized packages?</span>
+                    <i class="fas fa-plus"></i>
+                </button>
+                <div class="faq-answer">
+                    <p>Yes! We specialize in customized holiday packages for honeymoons, families, and corporate groups
+                        tailored to your needs.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question">
+                    <span>What payment methods do you accept?</span>
+                    <i class="fas fa-plus"></i>
+                </button>
+                <div class="faq-answer">
+                    <p>We accept bank transfers, UPI, credit/debit cards, and cash payments at our office.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question">
+                    <span>Is visa assistance provided for international tours?</span>
+                    <i class="fas fa-plus"></i>
+                </button>
+                <div class="faq-answer">
+                    <p>Yes, we provide complete visa assistance and guidance for all our international tour packages.
+                    </p>
+                </div>
+            </div>
         </div>
     </div>
 </section>
+
+<script>
+    // FAQ Accordion Logic
+    const faqButtons = document.querySelectorAll('.faq-question');
+
+    faqButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const item = button.parentElement;
+            const isActive = item.classList.contains('active');
+
+            // Close all others
+            document.querySelectorAll('.faq-item').forEach(i => {
+                i.classList.remove('active');
+                i.querySelector('i').classList.replace('fa-minus', 'fa-plus');
+            });
+
+            if (!isActive) {
+                item.classList.add('active');
+                button.querySelector('i').classList.replace('fa-plus', 'fa-minus');
+            }
+        });
+    });
+</script>
+
 {% endblock %}

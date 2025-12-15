@@ -12,26 +12,28 @@
 </div>
 
 <section class="tours-section">
-    <div style="display: grid; grid-template-columns: 250px 1fr; gap: 3rem;">
+    <div class="tours-layout">
         <!-- Sidebar Filters -->
         <aside class="tour-sidebar">
-            <div class="filter-box"
-                style="background: white; padding: 1.5rem; border-radius: var(--radius-md); box-shadow: var(--shadow-card);">
-                <h4 style="margin-bottom: 1.5rem; padding-bottom: 0.5rem; border-bottom: 2px solid #eee;">Categories
-                </h4>
+            <div class="filter-box">
+                <h4 class="filter-title">Categories</h4>
                 <div class="filter-group">
-                    <button class="filter-btn active" data-filter="all"
-                        style="display: block; width: 100%; text-align: left; margin: 5px 0; border: none; background: none; padding: 10px; border-radius: 5px;">All
-                        Packages</button>
-                    <button class="filter-btn" data-filter="honeymoon"
-                        style="display: block; width: 100%; text-align: left; margin: 5px 0; border: none; background: none; padding: 10px; border-radius: 5px;">Honeymoon</button>
-                    <button class="filter-btn" data-filter="family"
-                        style="display: block; width: 100%; text-align: left; margin: 5px 0; border: none; background: none; padding: 10px; border-radius: 5px;">Family
-                        Tours</button>
-                    <button class="filter-btn" data-filter="international"
-                        style="display: block; width: 100%; text-align: left; margin: 5px 0; border: none; background: none; padding: 10px; border-radius: 5px;">International</button>
-                    <button class="filter-btn" data-filter="domestic"
-                        style="display: block; width: 100%; text-align: left; margin: 5px 0; border: none; background: none; padding: 10px; border-radius: 5px;">Domestic</button>
+                    <!-- 1. All Packages Button (Always Visible) -->
+                    <button class="filter-btn active" data-filter="all">All Packages</button>
+
+                    <!-- 2. Master Button (Toggle) -->
+                    <button class="filter-btn master-toggle" id="categoryToggle"
+                        style="background: var(--primary); color: white; justify-content: space-between; display: flex; align-items: center;">
+                        Select Category <i class="fas fa-chevron-down"></i>
+                    </button>
+
+                    <!-- Hidden Category List -->
+                    <div class="category-dropdown" id="categoryList"
+                        style="display: none; padding-left: 10px; margin-top: 10px; border-left: 2px solid #eee;">
+                        {% for category in categories %}
+                        <button class="filter-btn" data-filter="{{ category.category_id }}">{{ category.name }}</button>
+                        {% endfor %}
+                    </div>
                 </div>
             </div>
         </aside>
@@ -41,21 +43,17 @@
             {% for category in categories %}
             <div class="card" data-category="{{ category.category_id }}">
                 <div class="card-image">
-                    <span class="category-tag"
-                        style="position: absolute; top: 15px; right: 15px; background: var(--primary); color: white; padding: 5px 15px; border-radius: 20px; font-size: 0.8rem; font-weight: 600;">Best
-                        Seller</span>
                     <img src="{{ url_for('static', filename='images/' + category.image) }}" alt="{{ category.name }}">
                 </div>
                 <div class="card-body">
-                    <h3>{{ category.name }}</h3>
+                    <h3 class="category-title">{{ category.name }}</h3>
                     <p style="margin-bottom: 1rem;"><i class="far fa-clock"></i> 5 Days / 4 Nights</p>
                     <p>Explore our exclusive {{ category.name.lower() }} packages designed just for you.</p>
                 </div>
                 <div class="card-footer">
-                    <span style="font-size: 1.2rem; font-weight: 700; color: var(--primary);">₹15,000<span
-                            style="font-size: 0.9rem; color: #777; font-weight: 400;">/person</span></span>
-                    <a href="{{ url_for('enquiry', tour_type=category.category_id) }}" class="btn"
-                        style="padding: 8px 20px; font-size: 0.85rem;">View Details</a>
+                    <span class="card-price">₹15,000<span>/person</span></span>
+                    <a href="{{ url_for('enquiry', tour_type=category.category_id) }}" class="btn btn-glass-small">View
+                        Details</a>
                 </div>
             </div>
             {% endfor %}
@@ -65,13 +63,34 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
+        // Toggle Logic
+        const toggleBtn = document.getElementById('categoryToggle');
+        const list = document.getElementById('categoryList');
+        const icon = toggleBtn.querySelector('i');
+
+        toggleBtn.addEventListener('click', () => {
+            if (list.style.display === 'none' || list.style.display === '') {
+                list.style.display = 'grid'; // Fixed: Use Grid layout
+                icon.classList.remove('fa-chevron-down');
+                icon.classList.add('fa-chevron-up');
+            } else {
+                list.style.display = 'none';
+                icon.classList.remove('fa-chevron-up');
+                icon.classList.add('fa-chevron-down');
+            }
+        });
+
         const filterBtns = document.querySelectorAll('.filter-btn');
         const cards = document.querySelectorAll('.card');
 
         filterBtns.forEach(btn => {
+            if (btn.classList.contains('master-toggle')) return; // Skip master button
+
             btn.addEventListener('click', () => {
-                // Remove active class from all buttons
-                filterBtns.forEach(b => b.classList.remove('active'));
+                // Remove active class from all buttons (except master)
+                filterBtns.forEach(b => {
+                    if (!b.classList.contains('master-toggle')) b.classList.remove('active')
+                });
                 // Add active class to clicked button
                 btn.classList.add('active');
 
@@ -79,7 +98,7 @@
 
                 cards.forEach(card => {
                     if (filterValue === 'all' || card.getAttribute('data-category') === filterValue) {
-                        card.style.display = 'flex';
+                        card.style.display = 'block'; // Fixed: Use block instead of flex to prevent layout squeeze
                     } else {
                         card.style.display = 'none';
                     }

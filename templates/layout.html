@@ -72,59 +72,138 @@
         {% block content %}{% endblock %}
     </main>
 
-    <footer>
-        <div class="footer-content">
-            <div class="footer-section">
-                <div class="logo-container" style="margin-bottom: 1rem;">
-                    <a href="{{ url_for('home') }}" class="logo">
-                        <img src="{{ url_for('static', filename='images/final_logo.png') }}" alt="Logo">
-                        <h2 style="color: white !important;">Lucky Tours</h2>
-                    </a>
+    <footer class="creative-footer">
+        <!-- Animated Background Mesh -->
+        <div class="footer-mesh-bg"></div>
+
+        <div class="footer-top-wave">
+            <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+                <defs>
+                    <path id="gentle-wave"
+                        d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+                </defs>
+                <g class="parallax">
+                    <use xlink:href="#gentle-wave" x="48" y="0" fill="rgba(255,255,255,0.7)" />
+                    <use xlink:href="#gentle-wave" x="48" y="3" fill="rgba(255,255,255,0.5)" />
+                    <use xlink:href="#gentle-wave" x="48" y="5" fill="rgba(255,255,255,0.3)" />
+                    <use xlink:href="#gentle-wave" x="48" y="7" fill="#fff" />
+                </g>
+            </svg>
+        </div>
+
+        <!-- Innovative Travel Scene Animation -->
+        <div class="travel-scene-wrapper">
+            <div class="sky-lane">
+                <i class="fas fa-cloud cloud-item c1"></i>
+                <i class="fas fa-cloud cloud-item c2"></i>
+                <i class="fas fa-cloud cloud-item c3"></i>
+                <i class="fas fa-plane-departure travel-plane"></i>
+                <i class="fas fa-parachute-box travel-balloon"></i>
+            </div>
+            <div class="road-lane">
+                <div class="road-markings"></div>
+                <i class="fas fa-bus-alt travel-bus"></i>
+                <i class="fas fa-motorcycle travel-bike"></i>
+            </div>
+
+            <!-- Ooty Toy Train Layer (Restored) -->
+            <div class="rail-lane">
+                <div class="rail-track"></div>
+                <div class="toy-train-group">
+                    <div class="train-smoke">
+                        <i class="fas fa-cloud"></i>
+                        <i class="fas fa-cloud"></i>
+                        <i class="fas fa-cloud"></i>
+                    </div>
+                    <i class="fas fa-subway train-engine"></i>
+                    <i class="fas fa-subway train-coach c1"></i>
+                    <i class="fas fa-subway train-coach c2"></i>
+                    <i class="fas fa-subway train-coach c3"></i>
+                    <i class="fas fa-subway train-coach c4"></i>
+                    <i class="fas fa-subway train-coach c5"></i>
+                    <i class="fas fa-subway train-coach c6"></i>
                 </div>
-                <p>No.1 Travel Agency in South India providing customized holiday packages for Honeymoon, Family, and
-                    Groups.</p>
-                <div class="social-links">
-                    <a href="#"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                    <a href="#"><i class="fab fa-youtube"></i></a>
-                </div>
-            </div>
-
-            <div class="footer-section">
-                <h3>Quick Links</h3>
-                <ul style="opacity: 0.8; line-height: 2;">
-                    <li><a href="{{ url_for('home') }}">Home</a></li>
-                    <li><a href="{{ url_for('about') }}">About Us</a></li>
-                    <li><a href="{{ url_for('tours') }}">Tour Packages</a></li>
-                    <li><a href="{{ url_for('contact') }}">Contact Us</a></li>
-                    <li><a href="#">Privacy Policy</a></li>
-                </ul>
-            </div>
-
-            <div class="footer-section">
-                <h3>Our Services</h3>
-                <ul style="opacity: 0.8; line-height: 2;">
-                    <li><a href="#">International Tours</a></li>
-                    <li><a href="#">Domestic Tours</a></li>
-                    <li><a href="#">Honeymoon Specials</a></li>
-                    <li><a href="#">Educational Tours</a></li>
-                    <li><a href="#">Visa Assistance</a></li>
-                </ul>
-            </div>
-
-            <div class="footer-section">
-                <h3>Contact Us</h3>
-                <p><i class="fas fa-map-marker-alt" style="margin-right: 10px; color: var(--primary);"></i> Velusamy
-                    Complex, Coimbatore</p>
-                <p><i class="fas fa-phone-alt" style="margin-right: 10px; color: var(--primary);"></i> +91 78679 83892
-                </p>
-                <p><i class="fas fa-envelope" style="margin-right: 10px; color: var(--primary);"></i>
-                    info@luckytours.com</p>
             </div>
         </div>
-        <div class="footer-bottom">
-            <p>&copy; 2024 Lucky Tours. All Rights Reserved. Designed for Excellence.</p>
+
+        <div class="footer-content-advanced">
+            <div class="footer-grid">
+                <!-- Brand Column -->
+                <div class="footer-col brand-col">
+                    <div class="logo-container-footer">
+                        <img src="{{ url_for('static', filename='images/final_logo.png') }}" alt="Lucky Tours Logo"
+                            class="footer-logo-img">
+                        <h2>LUCKY TOURS</h2>
+                    </div>
+                    <p class="footer-desc">Crafting unforgettable journeys since 2010. From serene beaches to
+                        majestic mountains, your perfect getaway starts here.</p>
+                    <div class="newsletter-box">
+                        <input type="email" placeholder="Enter your email for travel deals...">
+                        <button class="btn-newsletter"><i class="fas fa-paper-plane"></i></button>
+                    </div>
+                </div>
+
+                <!-- Links Column 1 -->
+                <div class="footer-col links-col">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="{{ url_for('home') }}"><span>Home</span></a></li>
+                        <li><a href="{{ url_for('about') }}"><span>About Us</span></a></li>
+                        <li><a href="{{ url_for('tours') }}"><span>Destinations</span></a></li>
+                        <li><a href="#"><span>Blog</span></a></li>
+                        <li><a href="#"><span>Careers</span></a></li>
+                        <li><a href="{{ url_for('contact') }}"><span>Contact</span></a></li>
+                    </ul>
+                </div>
+
+                <!-- Links Column 2 -->
+                <div class="footer-col links-col">
+                    <h3>Services</h3>
+                    <ul class="footer-links">
+                        <li><a href="#"><span>Honeymoon</span></a></li>
+                        <li><a href="#"><span>Family Trips</span></a></li>
+                        <li><a href="#"><span>Group Tours</span></a></li>
+                        <li><a href="#"><span>Visa Support</span></a></li>
+                    </ul>
+                </div>
+
+                <!-- Social/Contact Column -->
+                <div class="footer-col social-col">
+                    <h3>Connect</h3>
+                    <div class="social-grid-creative">
+                        <a href="#" class="social-tile facebook">
+                            <i class="fab fa-facebook-f"></i>
+                            <span class="social-tooltip">Facebook</span>
+                        </a>
+                        <a href="#" class="social-tile instagram">
+                            <i class="fab fa-instagram"></i>
+                            <span class="social-tooltip">Instagram</span>
+                        </a>
+                        <a href="#" class="social-tile twitter">
+                            <i class="fab fa-twitter"></i>
+                            <span class="social-tooltip">Twitter</span>
+                        </a>
+                        <a href="#" class="social-tile whatsapp">
+                            <i class="fab fa-whatsapp"></i>
+                            <span class="social-tooltip">WhatsApp</span>
+                        </a>
+                    </div>
+                    <div class="contact-mini">
+                        <p><i class="fas fa-phone"></i> +91 78679 83892</p>
+                        <p><i class="fas fa-envelope"></i> info@luckytours.com</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom-creative">
+            <p>&copy; 2024 Lucky Tours. Elevating Experiences.</p>
+            <div class="footer-legal">
+                <a href="#">Privacy</a>
+                <a href="#">Terms</a>
+                <a href="#">Sitemap</a>
+            </div>
         </div>
     </footer>
 
@@ -133,9 +212,10 @@
         <i class="fab fa-whatsapp"></i>
     </a>
 
+    <!-- Scripts -->
     <script>
         // Preloader
-        window.addEventListener('load', () => {
+        window.addEventListener('load', function () {
             const preloader = document.getElementById('preloader');
             preloader.style.opacity = '0';
             setTimeout(() => {
@@ -143,35 +223,16 @@
             }, 500);
         });
 
-        // Hamburger Menu Toggle
+        // Mobile Menu Toggle
         const hamburger = document.querySelector('.hamburger');
-        const navMenu = document.querySelector('.nav-links'); // Target the existing .nav-links ul
+        const navLinks = document.querySelector('.nav-links');
 
-        if (hamburger && navMenu) { // Ensure both elements exist before adding event listener
-            hamburger.addEventListener('click', () => {
-                navMenu.classList.toggle('active');
-            });
-        }
-
-        // Advanced Scroll Animations
-        const observerOptions = {
-            threshold: 0.1
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('section, .card, .feature-box, .section-title').forEach(el => {
-            el.classList.add('fade-in-section');
-            observer.observe(el);
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            hamburger.classList.toggle('active');
         });
 
-        // Header Scroll Effect
+        // Header Scroll Effect (kept from original)
         window.addEventListener('scroll', () => {
             const header = document.querySelector('header');
             if (window.scrollY > 50) {
@@ -181,19 +242,18 @@
             }
         });
 
-        // Hero Carousel Logic
-        const slides = document.querySelectorAll('.slide');
-        let currentSlide = 0;
+        // Auto-dismiss Flash Messages
+        const flashMessages = document.querySelectorAll('.flash-message');
+        flashMessages.forEach(msg => {
+            setTimeout(() => {
+                msg.style.animation = 'flightDeparture 1.2s ease-in forwards';
+                setTimeout(() => {
+                    msg.remove();
+                }, 1200); // Wait for animation to finish
+            }, 5000); // 5 seconds display time
+        });
 
-        function nextSlide() {
-            slides[currentSlide].classList.remove('active');
-            currentSlide = (currentSlide + 1) % slides.length;
-            slides[currentSlide].classList.add('active');
-        }
 
-        if (slides.length > 0) {
-            setInterval(nextSlide, 5000); // Change every 5 seconds
-        }
     </script>
 </body>
 

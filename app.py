@@ -1,16 +1,20 @@
+import os
+from datetime import datetime
 from flask import Flask, render_template, request, flash, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
-from datetime import datetime
-import os
 
 app = Flask(__name__)
-app.secret_key = 'lucky_tours_secret_key'  # Change this to a random secret key for security
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
+
+# Configuration
+app.secret_key = os.environ.get('SECRET_KEY', 'default_dev_secret_key')
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', 'sqlite:///site.db')
+if app.config['SQLALCHEMY_DATABASE_URI'].startswith("postgres://"):
+    app.config['SQLALCHEMY_DATABASE_URI'] = app.config['SQLALCHEMY_DATABASE_URI'].replace("postgres://", "postgresql://", 1)
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
 
-# Models
+# --- Models ---
 class Tour(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     category_id = db.Column(db.String(50), nullable=False, unique=True)
@@ -32,25 +36,51 @@ class Enquiry(db.Model):
     def __repr__(self):
         return f"Enquiry('{self.name}', '{self.email}', '{self.tour_type}')"
 
-# Database Initialization
+# --- Database Initialization ---
 def init_db():
+    """Initializes the database with default tour categories if they don't exist."""
     with app.app_context():
         db.create_all()
-        # Populate initial tour data if empty
+        
+        # Check if tours already exist to avoid duplicates
         if not Tour.query.first():
             initial_tours = [
-                Tour(category_id='honeymoon', name='Honeymoon Tours', image='honeymoon.png'),
+                Tour(category_id='honeymoon', name='Honeymoon Tours', image='cat_honeymoon.png'),
+                Tour(category_id='leisure', name='Leisure Tours', image='hero_switzerland.png'),
+                Tour(category_id='adventure', name='Adventure Tours', image='cat_adventure.png'),
+                Tour(category_id='pilgrimage', name='Pilgrimage / Spiritual Tours', image='cat_pilgrimage.png'),
+                Tour(category_id='cultural', name='Cultural & Heritage Tours', image='cat_culture.png'),
+                Tour(category_id='wildlife', name='Wildlife & Nature Tours', image='cat_wildlife.png'),
+                Tour(category_id='beach', name='Beach Tours', image='cat_beach.png'),
+                Tour(category_id='ayurveda', name='Ayurveda & Wellness Tours', image='cat_ayurveda.png'),
+                Tour(category_id='rural', name='Rural & Village Tourism', image='cat_rural.png'),
+                Tour(category_id='food', name='Food & Culinary Tours', image='cat_food.png'),
+                Tour(category_id='luxury', name='Luxury Tours', image='cat_luxury.png'),
+                Tour(category_id='festival', name='Festival & Event Tours', image='cat_festival.png'),
+                Tour(category_id='educational', name='Educational / Industrial Tours', image='cat_education.png'),
+                Tour(category_id='corporate', name='Corporate & MICE Tours', image='cat_corporate.png'),
+                Tour(category_id='roadtrip', name='Road Trip / Bike Tours', image='hero_mountain.png'),
                 Tour(category_id='family', name='Family Tours', image='family.png'),
-                Tour(category_id='college', name='College Tours', image='college.png'),
-                Tour(category_id='school', name='School Tours', image='school.png'),
-                Tour(category_id='international', name='International Tours', image='international.png'),
-                Tour(category_id='domestic', name='Domestic Tours', image='domestic.png')
+                Tour(category_id='college', name='College Tours', image='cat_education.png'),
+                Tour(category_id='school', name='School Tours', image='cat_education.png'),
+                Tour(category_id='international', name='International Tours', image='cat_adventure.png'),
+                Tour(category_id='domestic', name='Domestic Tours', image='cat_culture.png')
             ]
-            db.session.bulk_save_objects(initial_tours)
-            db.session.commit()
-            print("Database initialized with default tour categories.")
+            
+            # Robustly add tours
+            for tour in initial_tours:
+                existing = Tour.query.filter_by(category_id=tour.category_id).first()
+                if not existing:
+                    db.session.add(tour)
+            
+            try:
+                db.session.commit()
+                print("Database initialized with default tour categories.")
+            except Exception as e:
+                db.session.rollback()
+                print(f"Error initializing database: {e}")
 
-# Routes
+# --- Routes ---
 @app.route('/')
 def home():
     return render_template('index.html', title='Home')
@@ -61,9 +91,18 @@ def about():
 
 @app.route('/tours')
 def tours():
-    # Fetch tours from database
-    tour_categories = Tour.query.all()
-    # If for some reason DB is empty (shouldn't be due to init_db), fallback handling could go here
+    # Ensure DB is initialized if using SQLite and file is missing (failsafe)
+    if app.config['SQLALCHEMY_DATABASE_URI'].startswith('sqlite'):
+        if not os.path.exists('site.db'):
+             init_db()
+
+    try:
+        tour_categories = Tour.query.all()
+    except Exception:
+        # Fallback if table doesn't exist
+        init_db()
+        tour_categories = Tour.query.all()
+        
     return render_template('tours.html', title='Tour Categories', categories=tour_categories)
 
 @app.route('/enquiry', methods=['GET', 'POST'])
@@ -75,12 +114,10 @@ def enquiry():
         tour_type = request.form.get('tour_type')
         message = request.form.get('message')
         
-        # Save to Database
         new_enquiry = Enquiry(name=name, email=email, phone=phone, tour_type=tour_type, message=message)
         try:
             db.session.add(new_enquiry)
             db.session.commit()
-            print(f"New Enquiry Saved: {name}, {tour_type}")
             flash('Your enquiry has been submitted successfully! We will contact you soon.', 'success')
         except Exception as e:
             db.session.rollback()
@@ -95,11 +132,22 @@ def enquiry():
 def contact():
     return render_template('contact.html', title='Contact Us')
 
+# Auto-run db initialization for development convenience
+# For production workers (gunicorn), this might strictly be done via a separate command, 
+# but calling it here ensures it runs if executed directly.
 if __name__ == '__main__':
+    # Initialize DB if it doesn't exist
     if not os.path.exists('site.db'):
         init_db()
-    else:
-        # Also run init_db to ensure tables exist if file exists but maybe is empty or corrupted
-        init_db()
-        
+    
     app.run(debug=True)
+else:
+    # If running via gunicorn, we can attempt to ensure tables exist
+    # This is a bit of a hack for simple deployments, proper migrations (Flask-Migrate) are better.
+    # But for this scope, this works.
+    with app.app_context():
+        db.create_all()
+        # Optional: init data if empty
+        if not Tour.query.first():
+             init_db()
+

@@ -3,9 +3,8 @@
 {% block content %}
 <section class="hero-wrapper">
     <div class="hero-slider">
-        <!-- Slide 1: Beach (User Requested Text) -->
-        <div class="slide active"
-            style="background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('{{ url_for('static', filename='images/hero_beach.png') }}') no-repeat center center/cover;">
+        <!-- Slide 1: Beach -->
+        <div class="slide active" style="--bg-url: url('{{ url_for('static', filename='images/hero_beach.png') }}');">
             <div class="slide-content">
                 <h5 class="animate-text">Welcome to Lucky Tours</h5>
                 <h1 class="hero-title animate-text delay-1">Discover Your Next<br><span class="highlight-text"
@@ -17,8 +16,7 @@
             </div>
         </div>
         <!-- Slide 2: Mountain -->
-        <div class="slide"
-            style="background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('{{ url_for('static', filename='images/hero_mountain.png') }}') no-repeat center center/cover;">
+        <div class="slide" style="--bg-url: url('{{ url_for('static', filename='images/hero_mountain.png') }}');">
             <div class="slide-content">
                 <h5 class="animate-text">Adventure Awaits</h5>
                 <h1 class="hero-title animate-text delay-1">Conquer The<br>Majestic Peaks</h1>
@@ -27,9 +25,8 @@
                 <a href="{{ url_for('tours') }}" class="btn btn-primary animate-text delay-3">Explore Mountains</a>
             </div>
         </div>
-        <!-- Slide 3: City (New Paris Image) -->
-        <div class="slide"
-            style="background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('{{ url_for('static', filename='images/hero_city_v2.png') }}') no-repeat center center/cover;">
+        <!-- Slide 3: City -->
+        <div class="slide" style="--bg-url: url('{{ url_for('static', filename='images/hero_city_v2.png') }}');">
             <div class="slide-content">
                 <h5 class="animate-text">Springtime Magic</h5>
                 <h1 class="hero-title animate-text delay-1">Discover Paris<br><span class="highlight-text"
@@ -41,8 +38,7 @@
             </div>
         </div>
         <!-- Slide 4: Switzerland -->
-        <div class="slide"
-            style="background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('{{ url_for('static', filename='images/hero_switzerland.png') }}') no-repeat center center/cover;">
+        <div class="slide" style="--bg-url: url('{{ url_for('static', filename='images/hero_switzerland.png') }}');">
             <div class="slide-content">
                 <h5 class="animate-text">Alpine Wonder</h5>
                 <h1 class="hero-title animate-text delay-1">Breathe In The<br><span class="highlight-text"
@@ -56,143 +52,353 @@
     </div>
 
     <!-- Search Overlay -->
-    <div class="search-overlay">
-        <div class="search-container">
-            <h3>Find your perfect trip</h3>
-            <form action="{{ url_for('tours') }}" method="GET" class="search-form">
-                <div class="search-group">
+    <!-- Creative Search Overlay -->
+    <div class="search-overlay creative-search-overlay">
+        <div class="search-container glass-panel">
+            <h3 class="creative-search-title">
+                <span class="icon-plane"><i class="fas fa-plane-departure"></i></span>
+                Find Your <span class="highlight-script">Perfect Trip</span>
+            </h3>
+            <form action="{{ url_for('tours') }}" method="GET" class="search-form creative-form">
+                <div class="search-group custom-input">
                     <label><i class="fas fa-map-marker-alt"></i> Destination</label>
-                    <input type="text" placeholder="Where do you want to go?">
+                    <input type="text" placeholder="Where to?" class="form-control-k">
+                    <span class="focus-border"></span>
                 </div>
-                <div class="search-group">
+                <div class="search-group custom-input">
                     <label><i class="fas fa-calendar-alt"></i> Date</label>
-                    <input type="date">
+                    <input type="date" class="form-control-k">
+                    <span class="focus-border"></span>
                 </div>
-                <div class="search-group">
+                <div class="search-group custom-input">
                     <label><i class="fas fa-suitcase"></i> Type</label>
-                    <select name="category">
+                    <select name="category" class="form-control-k">
                         <option value="">All Categories</option>
                         <option value="honeymoon">Honeymoon</option>
-                        <option value="family">Family</option>
-                        <option value="international">International</option>
+                        <option value="family">Family Tours</option>
+                        <option value="international">International Tours</option>
+                        <option value="domestic">Domestic Tours</option>
+                        <option value="pilgrimage">Pilgrimage / Spiritual</option>
+                        <option value="adventure">Adventure Tours</option>
+                        <option value="leisure">Leisure Tours</option>
+                        <option value="cultural">Cultural & Heritage</option>
+                        <option value="wildlife">Wildlife & Nature</option>
+                        <option value="beach">Beach Tours</option>
+                        <option value="ayurveda">Ayurveda & Wellness</option>
+                        <option value="educational">Educational / Student</option>
+                        <option value="corporate">Corporate / MICE</option>
+                        <option value="luxury">Luxury Tours</option>
+                        <option value="food">Food & Culinary</option>
+                        <option value="roadtrip">Road Trip / Bike</option>
                     </select>
+                    <span class="focus-border"></span>
                 </div>
-                <button type="submit" class="btn-search">Search</button>
+                <button type="submit" class="btn-search btn-search-creative">
+                    <span>Search</span>
+                    <i class="fas fa-arrow-right"></i>
+                </button>
             </form>
         </div>
     </div>
 </section>
 
-<section class="featured-tours">
-    <h2 class="section-title"><span>Explore</span>Featured Packages</h2>
-    <div class="card-container">
-        <!-- Featured Cards -->
-        <div class="card">
-            <div class="card-image">
-                <img src="{{ url_for('static', filename='images/honeymoon.png') }}" alt="Honeymoon">
-            </div>
-            <div class="card-body">
-                <h3>Honeymoon Specials</h3>
-                <p>Romantic getaways for the perfect start to your new life.</p>
-                <a href="{{ url_for('enquiry', tour_type='honeymoon') }}" class="btn">Enquire Now</a>
+<section class="creative-featured-section">
+    <div class="creative-title-wrapper">
+        <span class="sub-tag">Explore</span>
+        <h2 class="main-head">Featured Packages</h2>
+    </div>
+
+    <div class="creative-grid-3d">
+        <!-- Card 1: Honeymoon -->
+        <div class="flip-card">
+            <div class="flip-card-inner">
+                <!-- Front -->
+                <div class="flip-card-front">
+                    <div class="front-image-wrap">
+                        <img src="{{ url_for('static', filename='images/honeymoon.png') }}" alt="Honeymoon">
+                    </div>
+                    <div class="front-overlay">
+                        <h3 class="front-title">Honeymoon</h3>
+                        <span class="front-subtitle">Romantic Getaways</span>
+                    </div>
+                </div>
+                <!-- Back -->
+                <div class="flip-card-back">
+                    <span class="price-tag-float">From $999</span>
+                    <i class="fas fa-heart back-icon"></i>
+                    <p class="back-desc">Experience the perfect start to your new life with our curated romantic
+                        destinations and private suites.</p>
+                    <a href="{{ url_for('enquiry', tour_type='honeymoon') }}" class="btn-neon">Enquire Now</a>
+                </div>
             </div>
         </div>
-        <div class="card">
-            <div class="card-image">
-                <img src="{{ url_for('static', filename='images/family.png') }}" alt="Family">
-            </div>
-            <div class="card-body">
-                <h3>Family Fun</h3>
-                <p>Memorable vacations for the whole family.</p>
-                <a href="{{ url_for('enquiry', tour_type='family') }}" class="btn">Enquire Now</a>
+
+        <!-- Card 2: Family -->
+        <div class="flip-card">
+            <div class="flip-card-inner">
+                <!-- Front -->
+                <div class="flip-card-front">
+                    <div class="front-image-wrap">
+                        <img src="{{ url_for('static', filename='images/family.png') }}" alt="Family">
+                    </div>
+                    <div class="front-overlay">
+                        <h3 class="front-title">Family Fun</h3>
+                        <span class="front-subtitle">Memorable Vacations</span>
+                    </div>
+                </div>
+                <!-- Back -->
+                <div class="flip-card-back">
+                    <span class="price-tag-float">Best Value</span>
+                    <i class="fas fa-users back-icon"></i>
+                    <p class="back-desc">Create lasting memories with activities for all ages. Kids stay free at select
+                        resorts!</p>
+                    <a href="{{ url_for('enquiry', tour_type='family') }}" class="btn-neon">Enquire Now</a>
+                </div>
             </div>
         </div>
-        <div class="card">
-            <div class="card-image">
-                <img src="{{ url_for('static', filename='images/international.png') }}" alt="International">
-            </div>
-            <div class="card-body">
-                <h3>International Adventures</h3>
-                <p>Explore cultures across the globe.</p>
-                <a href="{{ url_for('enquiry', tour_type='international') }}" class="btn">Enquire Now</a>
+
+        <!-- Card 3: International -->
+        <div class="flip-card">
+            <div class="flip-card-inner">
+                <!-- Front -->
+                <div class="flip-card-front">
+                    <div class="front-image-wrap">
+                        <img src="{{ url_for('static', filename='images/international.png') }}" alt="International">
+                    </div>
+                    <div class="front-overlay">
+                        <h3 class="front-title">Global</h3>
+                        <span class="front-subtitle">International Adventures</span>
+                    </div>
+                </div>
+                <!-- Back -->
+                <div class="flip-card-back">
+                    <span class="price-tag-float">Trending</span>
+                    <i class="fas fa-plane-departure back-icon"></i>
+                    <p class="back-desc">Explore new cultures and breathtaking landscapes. Visa assistance included.</p>
+                    <a href="{{ url_for('enquiry', tour_type='international') }}" class="btn-neon">Enquire Now</a>
+                </div>
             </div>
         </div>
     </div>
 </section>
 
 <!-- Why Choose Us -->
-<section class="features-section">
-    <h2 class="section-title"><span>Why Choose Us</span>Best Travel Agency</h2>
+<!-- Why Choose Us -->
+<section class="features-section creative-features-section">
+    <!-- Background Decor -->
+    <div class="features-bg-decor">
+        <div class="f-blob f-blob-1"></div>
+        <div class="f-blob f-blob-2"></div>
+    </div>
+
+    <h2 class="section-title animate-title">
+        <span class="highlight-pill">Why Choose Us</span>
+        <div class="title-main">Best Travel <span class="text-gradient">Agency</span></div>
+    </h2>
+
     <div class="features-grid">
-        <div class="feature-item">
-            <div class="feature-icon"><i class="fas fa-globe-asia"></i></div>
+        <div class="feature-item creative-card delay-1">
+            <div class="icon-box">
+                <div class="icon-blob"></div>
+                <i class="fas fa-globe-asia"></i>
+            </div>
             <h3>Wide Variety</h3>
-            <p>500+ destinations across the globe customized for you.</p>
+            <p>500+ destinations across the globe, fully customized to your dreams.</p>
         </div>
-        <div class="feature-item">
-            <div class="feature-icon"><i class="fas fa-dollar-sign"></i></div>
+        <div class="feature-item creative-card delay-2">
+            <div class="icon-box">
+                <div class="icon-blob"></div>
+                <i class="fas fa-search-dollar"></i>
+            </div>
             <h3>Best Price</h3>
-            <p>Guaranteed best prices and value for your money.</p>
+            <p>Unbeatable rates guaranteed with no hidden charges or fees.</p>
         </div>
-        <div class="feature-item">
-            <div class="feature-icon"><i class="fas fa-headset"></i></div>
+        <div class="feature-item creative-card delay-3">
+            <div class="icon-box">
+                <div class="icon-blob"></div>
+                <i class="fas fa-headset"></i>
+            </div>
             <h3>24/7 Support</h3>
-            <p>Always there for you, from planning to landing.</p>
+            <p>Round-the-clock assistance from booking until you land back home.</p>
         </div>
-        <div class="feature-item">
-            <div class="feature-icon"><i class="fas fa-user-check"></i></div>
+        <div class="feature-item creative-card delay-4">
+            <div class="icon-box">
+                <div class="icon-blob"></div>
+                <i class="fas fa-user-shield"></i>
+            </div>
             <h3>Expert Guides</h3>
-            <p>Friendly and knowledgeable guides for a safe trip.</p>
+            <p>Travel safely with our certified, friendly, and local experts.</p>
         </div>
     </div>
 </section>
 
 <!-- Testimonials -->
-<section class="testimonials-section">
-    <h2 class="section-title" style="color: white !important;"><span>Reviews</span>Happy Travelers</h2>
-    <div class="testimonial-track">
-        <div class="testimonial-card">
-            <div class="stars" style="color: #ffd700; margin-bottom: 1rem;"><i class="fas fa-star"></i><i
-                    class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
-                    class="fas fa-star"></i></div>
-            <p>"An absolute dream vacation! Everything was perfectly organized from start to finish. Highly recommend
-                Lucky Tours."</p>
-            <div class="client-info">
-                <div class="client-avatar" style="background: url('https://i.pravatar.cc/150?u=1') center/cover;"></div>
-                <div>
-                    <h4 style="margin: 0; color: white;">Sarah Johnson</h4>
-                    <span style="font-size: 0.8rem; opacity: 0.8;">Honeymoon Package</span>
+<!-- Testimonials -->
+<section class="testimonials-section creative-reviews">
+    <!-- Animated Background Particles -->
+    <div class="review-particles">
+        <span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span><span></span>
+    </div>
+
+    <h2 class="section-title" style="color: white !important; position: relative; z-index: 2;">
+        <span>Stories from</span> Happy Travelers
+    </h2>
+
+    <div class="testimonial-marquee-wrapper">
+        <div class="testimonial-track">
+            <!-- Set 1 -->
+            <div class="testimonial-card">
+                <i class="fas fa-quote-right card-quote-icon"></i>
+                <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                        class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                <p>"An absolute dream vacation! Everything was perfectly organized from start to finish. Highly
+                    recommend Lucky Tours."</p>
+                <div class="client-info">
+                    <div class="client-avatar" style="background: url('https://i.pravatar.cc/150?u=1') center/cover;">
+                    </div>
+                    <div>
+                        <h4>Sarah Johnson</h4>
+                        <span>Honeymoon Package</span>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="testimonial-card">
-            <div class="stars" style="color: #ffd700; margin-bottom: 1rem;"><i class="fas fa-star"></i><i
-                    class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
-                    class="fas fa-star"></i></div>
-            <p>"Great experience with the family tour. The kids loved every moment. The guide was very helpful."</p>
-            <div class="client-info">
-                <div class="client-avatar" style="background: url('https://i.pravatar.cc/150?u=2') center/cover;"></div>
-                <div>
-                    <h4 style="margin: 0; color: white;">Michael Smith</h4>
-                    <span style="font-size: 0.8rem; opacity: 0.8;">Family Tour</span>
+            <div class="testimonial-card">
+                <i class="fas fa-quote-right card-quote-icon"></i>
+                <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                        class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                <p>"Great experience with the family tour. The kids loved every moment. The guide was very helpful."</p>
+                <div class="client-info">
+                    <div class="client-avatar" style="background: url('https://i.pravatar.cc/150?u=2') center/cover;">
+                    </div>
+                    <div>
+                        <h4>Michael Smith</h4>
+                        <span>Family Tour</span>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="testimonial-card">
-            <div class="stars" style="color: #ffd700; margin-bottom: 1rem;"><i class="fas fa-star"></i><i
-                    class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
-                    class="fas fa-star"></i></div>
-            <p>"Affordable and high quality. I've used many agencies but Lucky Tours is by far the best in South India."
-            </p>
-            <div class="client-info">
-                <div class="client-avatar" style="background: url('https://i.pravatar.cc/150?u=3') center/cover;"></div>
-                <div>
-                    <h4 style="margin: 0; color: white;">Priya R.</h4>
-                    <span style="font-size: 0.8rem; opacity: 0.8;">College Trip</span>
+            <div class="testimonial-card">
+                <i class="fas fa-quote-right card-quote-icon"></i>
+                <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                        class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                <p>"Affordable and high quality. I've used many agencies but Lucky Tours is by far the best in South
+                    India."</p>
+                <div class="client-info">
+                    <div class="client-avatar" style="background: url('https://i.pravatar.cc/150?u=3') center/cover;">
+                    </div>
+                    <div>
+                        <h4>Priya R.</h4>
+                        <span>College Trip</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Set 2 (Duplicates for Marquee) -->
+            <div class="testimonial-card">
+                <i class="fas fa-quote-right card-quote-icon"></i>
+                <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                        class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                <p>"The spiritual tour was serene and well-managed. Hotels were excellent. Thank you team!"</p>
+                <div class="client-info">
+                    <div class="client-avatar" style="background: url('https://i.pravatar.cc/150?u=4') center/cover;">
+                    </div>
+                    <div>
+                        <h4>Rajesh Kumar</h4>
+                        <span>Pilgrimage Tour</span>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <i class="fas fa-quote-right card-quote-icon"></i>
+                <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                        class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                <p>"Lucky Tours made our anniversary special. The surprise cake was a lovely touch. Will book again."
+                </p>
+                <div class="client-info">
+                    <div class="client-avatar" style="background: url('https://i.pravatar.cc/150?u=5') center/cover;">
+                    </div>
+                    <div>
+                        <h4>Anita Desai</h4>
+                        <span>Luxury Package</span>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <i class="fas fa-quote-right card-quote-icon"></i>
+                <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                        class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                <p>"Highly professional service. The bus was clean and comfortable for our entire group."</p>
+                <div class="client-info">
+                    <div class="client-avatar" style="background: url('https://i.pravatar.cc/150?u=6') center/cover;">
+                    </div>
+                    <div>
+                        <h4>John Doe</h4>
+                        <span>Group Tour</span>
+                    </div>
+                </div>
+            </div>
+            <!-- Set 3 (Extra Buffer) -->
+            <div class="testimonial-card">
+                <i class="fas fa-quote-right card-quote-icon"></i>
+                <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                        class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                <p>"An absolute dream vacation! Everything was perfectly organized from start to finish."</p>
+                <div class="client-info">
+                    <div class="client-avatar" style="background: url('https://i.pravatar.cc/150?u=1') center/cover;">
+                    </div>
+                    <div>
+                        <h4>Sarah Johnson</h4>
+                        <span>Honeymoon Package</span>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </section>
+
+<script>
+    // Hero Slider Script
+    document.addEventListener('DOMContentLoaded', function () {
+        const slides = document.querySelectorAll('.slide');
+        const nextBtn = document.querySelector('.next-slide');
+        const prevBtn = document.querySelector('.prev-slide');
+        let currentSlide = 0;
+        const totalSlides = slides.length;
+        const slideInterval = 5000; // 5 seconds
+        let slideTimer;
+
+        // Initialize first slide
+        if (slides.length > 0) {
+            slides[0].classList.add('active');
+        }
+
+        function nextSlide() {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (currentSlide + 1) % totalSlides;
+            slides[currentSlide].classList.add('active');
+        }
+
+        function prevSlide() {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+            slides[currentSlide].classList.add('active');
+        }
+
+        function startSlider() {
+            slideTimer = setInterval(nextSlide, slideInterval);
+        }
+
+        function resetTimer() {
+            clearInterval(slideTimer);
+            startSlider();
+        }
+
+        // Auto start
+        startSlider();
+
+        // Optional: Pause on hover if controls were present (simplifying for now as controls aren't in HTML)
+        // If controls are added later, add event listeners here.
+    });
+</script>
 
 {% endblock %}

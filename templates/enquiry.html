@@ -7,41 +7,55 @@
 
         <form action="{{ url_for('enquiry') }}" method="POST">
             <div class="form-grid">
-                <div class="form-group">
+                <div class="form-group creative-group delay-1">
                     <label for="name">Full Name</label>
-                    <input type="text" id="name" name="name" class="form-control" placeholder="Enter your full name"
-                        required>
+                    <div class="input-wrapper">
+                        <i class="fas fa-user input-icon"></i>
+                        <input type="text" id="name" name="name" class="form-control" placeholder="Enter your full name"
+                            required>
+                    </div>
                 </div>
 
-                <div class="form-group">
+                <div class="form-group creative-group delay-2">
                     <label for="email">Email Address</label>
-                    <input type="email" id="email" name="email" class="form-control" placeholder="Enter your email"
-                        required>
+                    <div class="input-wrapper">
+                        <i class="fas fa-envelope input-icon"></i>
+                        <input type="email" id="email" name="email" class="form-control" placeholder="Enter your email"
+                            required>
+                    </div>
                 </div>
 
-                <div class="form-group">
+                <div class="form-group creative-group delay-3">
                     <label for="phone">Phone Number</label>
-                    <input type="tel" id="phone" name="phone" class="form-control" placeholder="Enter your phone number"
-                        required>
+                    <div class="input-wrapper">
+                        <i class="fas fa-phone input-icon"></i>
+                        <input type="tel" id="phone" name="phone" class="form-control"
+                            placeholder="Enter your phone number" required>
+                    </div>
                 </div>
 
-                <div class="form-group">
+                <div class="form-group creative-group delay-4">
                     <label for="tour_type">Interested Tour Type</label>
-                    <select id="tour_type" name="tour_type" class="form-control">
-                        <option value="general">General Enquiry</option>
-                        <option value="honeymoon" {% if request.args.get('tour_type')=='honeymoon' %}selected{% endif
-                            %}>Honeymoon Tours</option>
-                        <option value="family" {% if request.args.get('tour_type')=='family' %}selected{% endif %}>
-                            Family Tours</option>
-                        <option value="college" {% if request.args.get('tour_type')=='college' %}selected{% endif %}>
-                            College Tours</option>
-                        <option value="school" {% if request.args.get('tour_type')=='school' %}selected{% endif %}>
-                            School Tours</option>
-                        <option value="international" {% if request.args.get('tour_type')=='international' %}selected{%
-                            endif %}>International Tours</option>
-                        <option value="domestic" {% if request.args.get('tour_type')=='domestic' %}selected{% endif %}>
-                            Domestic Tours</option>
-                    </select>
+                    <div class="input-wrapper">
+                        <i class="fas fa-plane input-icon"></i>
+                        <select id="tour_type" name="tour_type" class="form-control">
+                            <option value="general">General Enquiry</option>
+                            <option value="honeymoon" {% if request.args.get('tour_type')=='honeymoon' %}selected{%
+                                endif %}>Honeymoon Tours</option>
+                            <option value="family" {% if request.args.get('tour_type')=='family' %}selected{% endif %}>
+                                Family Tours</option>
+                            <option value="college" {% if request.args.get('tour_type')=='college' %}selected{% endif
+                                %}>
+                                College Tours</option>
+                            <option value="school" {% if request.args.get('tour_type')=='school' %}selected{% endif %}>
+                                School Tours</option>
+                            <option value="international" {% if request.args.get('tour_type')=='international'
+                                %}selected{% endif %}>International Tours</option>
+                            <option value="domestic" {% if request.args.get('tour_type')=='domestic' %}selected{% endif
+                                %}>
+                                Domestic Tours</option>
+                        </select>
+                    </div>
                 </div>
             </div>
 
@@ -52,7 +66,7 @@
             </div>
 
             <div style="text-align: center; margin-top: 2rem;">
-                <button type="submit" class="btn" style="width: 100%; max-width: 300px;">Submit Enquiry</button>
+                <button type="submit" class="btn-submit-creative">Submit Enquiry</button>
             </div>
         </form>
     </div>
