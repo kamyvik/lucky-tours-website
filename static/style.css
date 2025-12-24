@@ -93,9 +93,7 @@ header {
     z-index: 1000;
 }
 
-header .container {
-    /* Reusing flexible container logic, inserted via HTML structure or just styled here if wrapping exists, assuming classic structure */
-}
+
 
 /* We need to target the existing header structure */
 header {
@@ -589,6 +587,8 @@ nav a:hover::after {
     }
 }
 
+
+
 .highlight-script {
     font-family: 'Dancing Script', cursive;
     /* Fallback if not loaded */
@@ -863,6 +863,7 @@ section {
     font-family: var(--font-heading);
     font-size: 3.5rem;
     background: linear-gradient(to right, #222, #444);
+    background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     position: relative;
@@ -1605,6 +1606,7 @@ footer {
 
 .text-gradient {
     background: linear-gradient(135deg, var(--primary), #ff3e3e);
+    background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     display: inline-block;
@@ -2212,6 +2214,7 @@ footer {
     font-size: 1.8rem;
     margin-bottom: 0.5rem;
     background: linear-gradient(45deg, var(--primary), #d53a9d);
+    background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     font-weight: 700;
@@ -2307,6 +2310,7 @@ footer {
     position: relative;
     display: inline-block;
     background: linear-gradient(45deg, var(--primary), #d53a9d);
+    background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
@@ -2438,10 +2442,7 @@ footer {
 }
 
 /* Connection Line (Rope) */
-.flash-message .rope {
-    /* We can't inject HTML easily, so let's use a box-shadow trick on the box or plane? */
-    /* Or just let the plane touch the box. */
-}
+
 
 /* Animations */
 @keyframes flightArrival {
@@ -3019,7 +3020,7 @@ footer {
     position: relative;
     max-width: 1400px;
     margin: 0 auto;
-    padding: 2rem 5% 5rem;
+    padding: 2rem 5% 2rem;
     z-index: 2;
 }
 
@@ -3027,7 +3028,7 @@ footer {
     display: grid;
     grid-template-columns: 1.5fr 1fr 1fr 1fr;
     gap: 40px;
-    margin-bottom: 2rem;
+    margin-bottom: 0.5rem;
 }
 
 /* Brand Column */
@@ -3237,7 +3238,7 @@ footer {
 .footer-bottom-creative {
     max-width: 1400px;
     margin: 0 auto;
-    padding: 2rem 5%;
+    padding: 1.5rem 5%;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
     display: flex;
     justify-content: space-between;
@@ -3635,6 +3636,7 @@ footer {
     transform: rotate(20deg);
     animation: floatPlaneBg 20s infinite linear;
 }
+
 
 @keyframes floatPlaneBg {
     0% {
